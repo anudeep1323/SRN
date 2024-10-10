@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide")
 
@@ -151,6 +152,19 @@ st.markdown("""
     .st-expander {
         margin-top: 30px !important;
     }
+
+    /* Add styling for table layout in Parts Summary */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    .table td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -213,6 +227,21 @@ with st.expander("VIN Summary", expanded=True):
 
 col1, col2 = st.columns([1.25, 1])
 
+# Intelligence Analysis Section with selectable checkboxes
+with col2:
+    st.markdown("""
+    <div class="intelligence-container-title">Intelligence Analysis</div>
+    """, unsafe_allow_html=True)
+
+    # Checkbox inputs for summary and root cause analysis
+    summary_checked = st.checkbox("Summary: Summarizing Vehicle information & Parts issues related complaints from customer or service advisor and dealer or technician comments parts level", value=True)
+    root_cause_checked = st.checkbox("Root Cause Analysis: Summarizing Vehicle information & Parts issues related complaints from customer or service advisor and dealer or technician comments parts level", value=True)
+
+    st.markdown("""
+    <button class="run-button">Run</button>
+    """, unsafe_allow_html=True)
+
+# Claim Summary
 with col1:
     st.markdown("""
     <div class="claim-summary-container">Claim Summary</div>
@@ -252,57 +281,87 @@ with col1:
     </table>
     """, unsafe_allow_html=True)
 
-with col2:
-    st.markdown("""
-    <div class="intelligence-container-title">Intelligence Analysis</div>
-    <div class="intelligence-container">
-        <div class="intelligence-item">
-            <div>
-                <input type="checkbox" checked>
-                <span>Summary: Summarizing Vehicle information & Parts issues related complaints from customer or service advisor and dealer or technician comments parts level</span>
+# Parts Summary
+with st.expander("Parts Summary", expanded=False):
+    part_summary_html = """
+        <div style="width: 100%; border-radius: 10px; padding: 10px; margin-top: 10px; background-color: #f9f9f9;">
+            <!-- Header -->
+            <div style="background-color: #7483a2; color: white; padding: 10px; border-radius: 8px 8px 0 0; display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-size: 16px; font-weight: bold;">01 Parts Name: Fuel Pump</div>
+                <div style="font-size: 16px; font-weight: bold;">Supplier Name: Decostar</div>
             </div>
-        </div>
-        <div class="intelligence-item">
-            <div>
-                <input type="checkbox" checked>
-                <span>Root Cause Analysis: Summarizing Vehicle information & Parts issues related complaints from customer or service advisor and dealer or technician comments parts level</span>
-            </div>
-        </div>
-        <button class="run-button">Run</button>
-    </div>
-    """, unsafe_allow_html=True)
 
-with st.expander("Parts Summary", expanded=True):
-    selected_part = st.selectbox(
-        "Show Details for the following parts:",
-        ["Fuel Pump", "Music System"],
-        key="parts-summary"
-    )
+            <!-- View Details Expander -->
+            <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px; background-color: white; margin-top: 10px;">
+                <strong style="cursor: pointer;">View Details</strong>
+                <div style="margin-top: 10px;">
+                    <!-- Customer Complaint Section -->
+                    <div style="padding: 15px; background-color: #f0f5ff; border-radius: 8px;">
+                        <strong>Customer/Service Advisor Complaint</strong><br>
+                        Filter issue in the fuel pumping system, leading to excess fuel consumption and engine noise over 50 mph.
+                    </div>
 
-    if selected_part == "Fuel Pump":
-        st.markdown("""
-            <div class="details-box">
-                <div class="details-header">Parts Name: Fuel Pump</div>
-                <div class="details-content">
-                    <strong>Supplier Name:</strong> Decostar<br>
-                    <strong>Customer/Service Advisor Complaint:</strong> Filter issue in fuel pumping system which leads to excess fuel consumption and producing engine noise when crossing speed limit more than 50mph.<br>
-                    <strong>Dealer/Technician Comments:</strong> Need to change the filter in fuel pump as it’s leaking.<br>
-                    <strong>Issue Summary:</strong> Fuel pump filter issue & change the filter.<br>
-                    <strong>Root Cause Category:</strong> Filter design issue.
+                    <!-- Dealer Comments Section -->
+                    <div style="padding: 15px; background-color: #f0f5ff; border-radius: 8px; margin-top: 10px;">
+                        <strong>Dealer/Technician Comments</strong><br>
+                        Need to change the filter in the fuel pump due to leakage issues.
+                    </div>
+
+                    <!-- Issue Summary and Root Cause Category Side by Side -->
+                    <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                        <!-- Issue Summary -->
+                        <div style="background-color: #e6f7ff; border-radius: 8px; padding: 10px; width: 48%;">
+                            <strong>Issue Summary</strong><br>
+                            Fuel pump filter issue & change the filter.
+                        </div>
+
+                        <!-- Root Cause Category -->
+                        <div style="background-color: #e6f7ff; border-radius: 8px; padding: 10px; width: 48%;">
+                            <strong>Root Cause Category</strong><br>
+                            Filter design issue.
+                        </div>
+                    </div>
                 </div>
             </div>
-        """, unsafe_allow_html=True)
 
-    elif selected_part == "Music System":
-        st.markdown("""
-            <div class="details-box">
-                <div class="details-header">Parts Name: Music System</div>
-                <div class="details-content">
-                    <strong>Supplier Name:</strong> Kasai North America<br>
-                    <strong>Customer/Service Advisor Complaint:</strong> Audio system producing distortion when volume is raised above 70%.<br>
-                    <strong>Dealer/Technician Comments:</strong> Need to replace speakers as sound quality is degraded.<br>
-                    <strong>Issue Summary:</strong> Speaker malfunction & need replacement.<br>
-                    <strong>Root Cause Category:</strong> Speaker design issue.
+            <!-- Second Part Summary -->
+            <div style="background-color: #7483a2; color: white; padding: 10px; border-radius: 8px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-size: 16px; font-weight: bold;">02 Parts Name: Music System</div>
+                <div style="font-size: 16px; font-weight: bold;">Supplier Name: Kasai North America</div>
+            </div>
+
+            <!-- View Details Expander for Second Part -->
+            <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px; background-color: white; margin-top: 10px;">
+                <strong style="cursor: pointer;">View Details</strong>
+                <div style="margin-top: 10px;">
+                    <!-- Customer Complaint Section -->
+                    <div style="padding: 15px; background-color: #f0f5ff; border-radius: 8px;">
+                        <strong>Customer/Service Advisor Complaint</strong><br>
+                        Audio system producing distortion when volume is raised above 70%.
+                    </div>
+
+                    <!-- Dealer Comments Section -->
+                    <div style="padding: 15px; background-color: #f0f5ff; border-radius: 8px; margin-top: 10px;">
+                        <strong>Dealer/Technician Comments</strong><br>
+                        Need to replace speakers as sound quality is degraded.
+                    </div>
+
+                    <!-- Issue Summary and Root Cause Category Side by Side -->
+                    <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                        <!-- Issue Summary -->
+                        <div style="background-color: #e6f7ff; border-radius: 8px; padding: 10px; width: 48%;">
+                            <strong>Issue Summary</strong><br>
+                            Speaker malfunction & need replacement.
+                        </div>
+
+                        <!-- Root Cause Category -->
+                        <div style="background-color: #e6f7ff; border-radius: 8px; padding: 10px; width: 48%;">
+                            <strong>Root Cause Category</strong><br>
+                            Speaker design issue.
+                        </div>
+                    </div>
                 </div>
             </div>
-        """, unsafe_allow_html=True)
+        </div>
+    """
+    components.html(part_summary_html, height=1000)
