@@ -56,6 +56,9 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+
+
+
 # Top Navigation Bar
 st.markdown("""
     <div class="nav-bar">
@@ -169,11 +172,11 @@ with col1:
             bargap=0.2,
             bargroupgap=0.1,
             annotations=[
-                dict(x=1.02, y=1, xref="paper", yref="paper", text="Impact Score < 0.50", showarrow=False,
+                dict(x=1.23, y=0.80, xref="paper", yref="paper", text="Impact Score < 0.50", showarrow=False,
                      font=dict(color="blue")),
-                dict(x=1.02, y=0.95, xref="paper", yref="paper", text="FIN - Impact < 0.50", showarrow=False,
+                dict(x=1.23, y=0.75, xref="paper", yref="paper", text="FIN - Impact < 0.50", showarrow=False,
                      font=dict(color="red")),
-                dict(x=1.02, y=0.90, xref="paper", yref="paper", text="OPS - Impact < 0.50", showarrow=False,
+                dict(x=1.23, y=0.70, xref="paper", yref="paper", text="OPS - Impact < 0.50", showarrow=False,
                      font=dict(color="green"))
             ]
         )
@@ -204,6 +207,10 @@ with col2:
             hovermode="closest",
         )
         st.plotly_chart(fig2, use_container_width=True)
+        
+        
+
+
 
 # Trend Analysis and Financial Impact side by side
 col3, col4 = st.columns(2)
@@ -255,3 +262,12 @@ with col4:
             hovermode="closest",
         )
         st.plotly_chart(fig4, use_container_width=True)
+
+
+
+
+
+
+
+
+
