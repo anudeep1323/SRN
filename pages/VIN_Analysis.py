@@ -3,15 +3,15 @@ import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide")
 
-# CSS Styling for prettier UI
+# CSS Styling for appealing UI
 st.markdown("""
     <style>
     /* General Page Styling */
     .search-bar {
         width: 75%;
-        padding: 10px;
-        border-radius: 4px;
-        border: 1px solid #ddd;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
         font-size: 14px;
         margin-bottom: 20px;
         margin-right: 20px;
@@ -25,33 +25,35 @@ st.markdown("""
 
     .control-item button {
         background-color: #002C61;
-        border: 1px solid #E0E0E0;
-        padding: 6px 12px;
-        border-radius: 4px;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
         color: white;
         cursor: pointer;
         font-size: 14px;
+        transition: background-color 0.3s ease;
     }
 
     .control-item button:hover {
-        background-color: #002C61;
+        background-color: #004A9F;
     }
 
     /* Styling for VIN Summary Section */
     .vin-summary-content {
-        background-color: white;
-        padding: 10px;
+        background-color: #F9FAFB;
+        padding: 12px;
         border-radius: 8px;
-        border: 1px solid #ddd;
+        border: 1px solid #E0E0E0;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
+        gap: 12px;
     }
 
     .vin-item {
-        background-color: #f7f7f7;
-        padding: 12px;
+        background-color: #fff;
+        padding: 15px;
         border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         text-align: left;
     }
 
@@ -62,28 +64,28 @@ st.markdown("""
         margin-top: 10px;
         border-radius: 10px;
         overflow: hidden;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     .claim-summary th {
         background-color: #002C61;
         color: white;
-        padding: 10px;
+        padding: 12px;
         text-align: left;
     }
 
     .claim-summary td {
-        padding: 10px;
+        padding: 12px;
         border-bottom: 1px solid #ddd;
         background-color: #f9f9f9;
     }
 
     .claim-summary tr:nth-child(even) td {
-        background-color: #e0e7ef;
+        background-color: #f3f6fa;
     }
 
     .claim-summary tr:hover td {
-        background-color: #d1e4fc;
+        background-color: #e1edff;
         color: #002C61;
         font-weight: bold;
     }
@@ -92,7 +94,7 @@ st.markdown("""
         padding: 20px;
         border-radius: 10px;
         background-color: #fff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         margin-top: 10px;
     }
 
@@ -100,12 +102,13 @@ st.markdown("""
     .intelligence-bar {
         background-color: #DAA520;
         border-radius: 8px;
-        padding: 10px;
+        padding: 12px;
         color: white;
         font-weight: bold;
         font-size: 18px;
         text-align: left;
         margin-top: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .intelligence-checkbox {
@@ -113,9 +116,9 @@ st.markdown("""
         align-items: center;
         gap: 10px;
         font-size: 14px;
-        padding: 10px;
+        padding: 12px;
         margin-bottom: 10px;
-        background-color: #F8F9FA;
+        background-color: #f7f7f7;
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
@@ -123,7 +126,7 @@ st.markdown("""
     .run-button {
         background-color: #002C61;
         color: white;
-        padding: 10px;
+        padding: 12px;
         border: none;
         border-radius: 8px;
         cursor: pointer;
@@ -131,6 +134,11 @@ st.markdown("""
         margin-bottom: 23px;
         font-size: 16px;
         font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .run-button:hover {
+        background-color: #004A9F;
     }
 
     .details-box {
@@ -152,14 +160,53 @@ st.markdown("""
         cursor: pointer;
     }
 
-    /* Colorful Expander box content */
-    .expander-box {
-        background-color: #f0f0f5;
+    /* Styling for the Part Summary Table */
+    .part-summary {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
         border-radius: 10px;
-        margin-bottom: 23px;
-        padding: 10px;
-        box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+        overflow: hidden;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     }
+
+    .part-summary th {
+        background-color: #002C61;
+        color: white;
+        padding: 12px;
+        text-align: left;
+    }
+
+    .part-summary td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        background-color: #f9f9f9;
+    }
+
+    .part-summary tr:nth-child(even) td {
+        background-color: #f3f6fa;
+    }
+
+    .part-summary tr:hover td {
+        background-color: #e1edff;
+        color: #002C61;
+        font-weight: bold;
+    }
+
+    .part-summary th:nth-child(1),
+    .part-summary td:nth-child(1) {
+        text-align: center;
+    }
+
+    .part-summary td a {
+        color: #0066cc;
+        text-decoration: none;
+    }
+
+    .part-summary td a:hover {
+        text-decoration: underline;
+    }
+
     </style>
 """, unsafe_allow_html=True)
 
@@ -170,9 +217,7 @@ st.markdown("""
 
 st.markdown("""
     <div style="display: flex; justify-content: space-between; align-items: center;">
-        <input type="text" class="search-bar" placeholder="Search">
-        <div class="controls-section">
-        </div>
+        <input type="text" class="search-bar" placeholder="Search VIN">
     </div>
 """, unsafe_allow_html=True)
 
@@ -207,7 +252,6 @@ with st.expander("VIN Summary", expanded=True):
         </div>
     """, unsafe_allow_html=True)
 
-col1, col2 = st.columns([1.25, 1])
 
 # Claim Summary Section with Expander and Checkboxes
 with st.expander("Claim Summary", expanded=True):
@@ -277,68 +321,54 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Parts Summary Section
-with st.expander("Parts Summary", expanded=False):
-    part_summary_html = """
+with st.expander("Parts Summary", expanded=True):
+    st.markdown("""
         <div class="expander-box">
-            <div style="width: 100%; border-radius: 10px; padding: 10px; margin-top: 20px; background-color: #f9f9f9;">
-                <div style="background-color: #7483a2; color: white; padding: 10px; border-radius: 8px 8px 0 0; display: flex; justify-content: space-between; align-items: center;">
-                    <div style="font-size: 16px; font-weight: bold;">01 Parts Name: Fuel Pump</div>
-                    <div style="font-size: 16px; font-weight: bold;">Supplier Name: Decostar</div>
-                </div>
-                <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px; background-color: white; margin-top: 10px;">
-                    <strong style="cursor: pointer;">View Details</strong>
-                    <div style="margin-top: 10px;">
-                        <div style="padding: 15px; background-color: #f0f5ff; border-radius: 8px;">
-                            <strong>Customer/Service Advisor Complaint</strong><br>
-                            Filter issue in the fuel pumping system, leading to excess fuel consumption and engine noise over 50 mph.
-                        </div>
-                        <div style="padding: 15px; background-color: #f0f5ff; border-radius: 8px; margin-top: 10px;">
-                            <strong>Dealer/Technician Comments</strong><br>
-                            Need to change the filter in the fuel pump due to leakage issues.
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                            <div style="background-color: #e6f7ff; border-radius: 8px; padding: 10px; width: 48%;">
-                                <strong>Issue Summary</strong><br>
-                                Fuel pump filter issue & change the filter.
-                            </div>
-                            <div style="background-color: #e6f7ff; border-radius: 8px; padding: 10px; width: 48%;">
-                                <strong>Root Cause Category</strong><br>
-                                Filter design issue.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Second Part Summary -->
-                <div style="background-color: #7483a2; color: white; padding: 10px; border-radius: 8px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
-                    <div style="font-size: 16px; font-weight: bold;">02 Parts Name: Music System</div>
-                    <div style="font-size: 16px; font-weight: bold;">Supplier Name: Kasai North America</div>
-                </div>
-
-                <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px; background-color: white; margin-top: 10px;">
-                    <strong style="cursor: pointer;">View Details</strong>
-                    <div style="margin-top: 10px;">
-                        <div style="padding: 15px; background-color: #f0f5ff; border-radius: 8px;">
-                            <strong>Customer/Service Advisor Complaint</strong><br>
-                            Audio system producing distortion when volume is raised above 70%.
-                        </div>
-                        <div style="padding: 15px; background-color: #f0f5ff; border-radius: 8px; margin-top: 10px;">
-                            <strong>Dealer/Technician Comments</strong><br>
-                            Need to replace speakers as sound quality is degraded.
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                            <div style="background-color: #e6f7ff; border-radius: 8px; padding: 10px; width: 48%;">
-                                <strong>Issue Summary</strong><br>
-                                Speaker malfunction & need replacement.
-                            </div>
-                            <div style="background-color: #e6f7ff; border-radius: 8px; padding: 10px; width: 48%;">
-                                <strong>Root Cause Category</strong><br>
-                                Speaker design issue.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <table class="part-summary">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Claim Number</th>
+                        <th>Part Name</th>
+                        <th>Customer/Service Advisor Complaint</th>
+                        <th>Dealer/Technician Comments</th>
+                        <th>Issue Summary</th>
+                        <th>Root Cause Category</th>
+                        <th>RCA Source System</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>01</td>
+                        <td>53135105</td>
+                        <td>Fuel Tank</td>
+                        <td>filter issue in fuel pumping system which leads... <a href="#">View More</a></td>
+                        <td>filter issue in fuel pumping system which leads... <a href="#">View More</a></td>
+                        <td>filter issue in fuel pumping system which leads... <a href="#">View More</a></td>
+                        <td>Filter design issue</td>
+                        <td>DRIVE</td>
+                    </tr>
+                    <tr>
+                        <td>02</td>
+                        <td>46893086</td>
+                        <td>Front Wheel</td>
+                        <td>filter issue in fuel pumping system which leads... <a href="#">View More</a></td>
+                        <td>filter issue in fuel pumping system which leads... <a href="#">View More</a></td>
+                        <td>filter issue in fuel pumping system which leads... <a href="#">View More</a></td>
+                        <td>Filter design issue</td>
+                        <td>DRIVE</td>
+                    </tr>
+                    <tr>
+                        <td>03</td>
+                        <td>46893237</td>
+                        <td>Engine</td>
+                        <td>filter issue in fuel pumping system which leads... <a href="#">View More</a></td>
+                        <td>filter issue in fuel pumping system which leads... <a href="#">View More</a></td>
+                        <td>filter issue in fuel pumping system which leads... <a href="#">View More</a></td>
+                        <td>Filter design issue</td>
+                        <td>DRIVE</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    """
-components.html(part_summary_html, height=700)
+    """, unsafe_allow_html=True)
