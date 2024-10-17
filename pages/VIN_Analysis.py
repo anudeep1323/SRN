@@ -8,7 +8,7 @@ st.markdown("""
     <style>
     /* General Page Styling */
     .search-bar {
-        width: 75%;
+        width: 35%;
         padding: 12px;
         border-radius: 8px;
         border: 1px solid #ccc;
@@ -124,13 +124,14 @@ st.markdown("""
     }
 
     .run-button {
-        background-color: #002C61;
+        background-color: #DAA520;
+        align-items: right;
         color: white;
         padding: 12px;
         border: none;
         border-radius: 8px;
         cursor: pointer;
-        width: 100%;
+        width: 25%;
         margin-bottom: 23px;
         font-size: 16px;
         font-weight: bold;
