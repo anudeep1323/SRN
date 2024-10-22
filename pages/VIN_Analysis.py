@@ -15,6 +15,7 @@ st.markdown("""
         font-size: 14px;
         margin-bottom: 20px;
         margin-right: 20px;
+    
     }
 
     .controls-section {
@@ -47,6 +48,7 @@ st.markdown("""
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 12px;
+        margin-bottom: 10px;
     }
 
     .vin-item {
